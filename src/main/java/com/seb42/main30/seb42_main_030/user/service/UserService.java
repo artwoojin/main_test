@@ -107,5 +107,12 @@ public class UserService {
             throw new BusinessException(ExceptionCode.USER_EXISTS);
     }
 
+    // Login 한 Member 를 가져오는 로직
+    public User getLoginUser() {
+        return  userRepository.findByEmail(GetAuthUserUtils.getAuthUser().getName())
+                .orElseThrow(()
+                        -> new BusinessException(ExceptionCode.USER_NOT_FOUND));
+    }
+
 }
 
