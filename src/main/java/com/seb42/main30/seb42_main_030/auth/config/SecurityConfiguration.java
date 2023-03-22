@@ -62,15 +62,15 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/users").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/users").hasRole("USER")
                         // 다이어리 접근 제어
-                        .antMatchers(HttpMethod.POST, "/diary").permitAll()
+                        .antMatchers(HttpMethod.POST, "/diary").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/diary").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/diary").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/diary").permitAll()
                         .antMatchers(HttpMethod.DELETE, "/diary").hasRole("USER")
                         // 댓글 접근 제어
                         .antMatchers(HttpMethod.POST, "/comments").permitAll()
-                        .antMatchers(HttpMethod.PATCH, "/comments").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/comments").hasRole("USER")
-                        .antMatchers(HttpMethod.DELETE, "/comments").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/comments").permitAll()
+                        .antMatchers(HttpMethod.GET, "/comments").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/comments").permitAll()
                         // 로그아웃 접근 제어
                         .antMatchers(HttpMethod.POST, "/auth/logout").hasRole("USER")
 
