@@ -10,6 +10,10 @@ import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import com.seb42.main30.seb42_main_030.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +50,12 @@ public class DiaryService {
     }
 
 //    read all
-    public List<Diary> readDiarys() {return diaryRepository.findAll(); }
+//    public List<Diary> readDiarys(Pageable pageable) {return diaryRepository.findAll(pageable); }
+//    public Page<Diary> readDiarys(Pageable pageable){return diaryRepository.findAll(pageable);}
+
+    //service
+    public Page<Diary> diaryList(Pageable pageable){return diaryRepository.findAll(pageable);
+    }
 
 
 //    update

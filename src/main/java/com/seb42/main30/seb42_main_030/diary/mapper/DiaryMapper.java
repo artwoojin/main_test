@@ -9,6 +9,7 @@ import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.data.domain.Page;
 
 
 import java.util.List;
@@ -28,9 +29,12 @@ public interface DiaryMapper {
     @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
     DiaryDto.Response diaryToResponse(Diary diary);
 
+//    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
+//    List<DiaryDto.Response> diaryToResponses(List<Diary> diaries);
+
+
+
+
     @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
-    List<DiaryDto.Response> diaryToResponses(List<Diary> diaries);
-
-
-
+    List<DiaryDto.Response> diaryToResponses(Page<Diary> diaries);
 }

@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-24T11:22:57+0900",
+    date = "2023-03-30T17:03:38+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -111,12 +112,12 @@ public class DiaryMapperImpl implements DiaryMapper {
     }
 
     @Override
-    public List<DiaryDto.Response> diaryToResponses(List<Diary> diaries) {
+    public List<DiaryDto.Response> diaryToResponses(Page<Diary> diaries) {
         if ( diaries == null ) {
             return null;
         }
 
-        List<DiaryDto.Response> list = new ArrayList<DiaryDto.Response>( diaries.size() );
+        List<DiaryDto.Response> list = new ArrayList<DiaryDto.Response>();
         for ( Diary diary : diaries ) {
             list.add( diaryToResponse( diary ) );
         }
