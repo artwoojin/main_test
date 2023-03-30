@@ -63,7 +63,7 @@ public class DiaryController {
 //    }
 
     //메인페이지 전체 게시글 조회 + 페이지네이션
-    @GetMapping("/main")
+    @GetMapping
     public ResponseEntity diaryList(Model model,
                                     @PageableDefault(page = 0, size = 12, sort = "diaryId", direction = Sort.Direction.DESC) Pageable pageable){
 
