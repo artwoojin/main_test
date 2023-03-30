@@ -50,6 +50,10 @@ public class CommentService {
         Comment verifyComment = verifyWriter(commentId);
         verifyComment.setBody(comment.getBody());
 
+        long userId = userService.getLoginUser().getUserId();
+        User user = getUserFromId(userId);
+        comment.setUser(user);
+
         return commentRepository.save(comment);
     }
 

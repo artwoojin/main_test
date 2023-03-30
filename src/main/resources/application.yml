@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://main30-diary.cs8oc5fuvzgl.ap-northeast-2.rds.amazonaws.com:13306/main?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://diary-deploy.cs8oc5fuvzgl.ap-northeast-2.rds.amazonaws.com:13306/main
     username: admin
     password: admin-diary
   jpa:
@@ -26,7 +26,7 @@ server:
     encoding:
       force-response: true
 jwt:
-  key: "j4nsK69sMIw67xksgHJoLXNwcmluZy1ib290LWp3dC10dXRvcmladsjkhz76HJFGukiy1209VHrKIOy7TDjr7420fgGFWnNO472CHhzbzZWNyZXQK"
+  key: 
   access-token-expiration-minutes: 10000
   refresh-token-expiration-minutes: 420
 servlet:
