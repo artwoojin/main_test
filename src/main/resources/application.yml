@@ -1,9 +1,5 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://diary-deploy.cs8oc5fuvzgl.ap-northeast-2.rds.amazonaws.com:13306/main
-    username: admin
-    password: admin-diary
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -25,11 +21,15 @@ server:
   servlet:
     encoding:
       force-response: true
-jwt:
-  key: 
-  access-token-expiration-minutes: 10000
-  refresh-token-expiration-minutes: 420
-servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
+
+cloud:
+  aws:
+    s3:
+      bucket: main30
+    credentials:
+      accessKey: "AKIASX4YIIHRXX274JCF"
+      secretKey: "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"
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
