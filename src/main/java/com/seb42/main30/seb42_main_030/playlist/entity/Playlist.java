@@ -1,0 +1,41 @@
+package com.seb42.main30.seb42_main_030.playlist.entity;
+
+
+import com.seb42.main30.seb42_main_030.diary.entity.Diary;
+import com.seb42.main30.seb42_main_030.user.entity.User;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+public class Playlist {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long playlistId;
+
+    @Column
+    private String thumbnail;
+
+    @Column
+    private String title;
+
+    @Column
+    private String url;
+
+
+    //    유저랑 다이어리 연결
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    //
+    @ManyToOne
+    @JoinColumn(name = "diary_id")
+    private Diary diary;
+
+}

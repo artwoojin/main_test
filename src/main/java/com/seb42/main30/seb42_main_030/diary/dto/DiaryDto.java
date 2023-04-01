@@ -3,6 +3,7 @@ package com.seb42.main30.seb42_main_030.diary.dto;
 
 
 import com.seb42.main30.seb42_main_030.comment.dto.CommentDto;
+import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -63,6 +64,7 @@ public class DiaryDto {
 
 
         private List<CommentDto.Response> comments;
+        private List<PlaylistDto.Response> playlists;
 
     }
 
