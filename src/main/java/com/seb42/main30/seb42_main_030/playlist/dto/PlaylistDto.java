@@ -5,51 +5,57 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+@Getter
+@Setter
 public class PlaylistDto {
 
-    @Setter
-    @Getter
-    @NoArgsConstructor
-    public static class Post {
-
-    private long diaryId;
-
-
     private String url;
-    private String thumbnail;
     private String title;
+    private String thumbnail;
+    private String channelId;
 
-    }
-
-    @Setter
-    @Getter
-    @NoArgsConstructor
-    public static class Patch {
-
-        private long diaryId;
-
-        private long playlistId;
-
-        private String url;
-        private String thumbnail;
-        private String title;
-
-    }
-
-    @Setter
-    @Getter
-    @AllArgsConstructor
-    public static class Response {
-
-        private long playlistId;
-        private long diaryId;
-        private String thumbnail;
-        private String title;
-        private String url;
-
-
-
-    }
+//    @Setter
+//    @Getter
+//    @NoArgsConstructor
+//    public static class Post {
+//
+//    private long diaryId;
+//
+//
+//    private String url;
+//    private String thumbnail;
+//    private String title;
+//
+//    }
+//
+//    @Setter
+//    @Getter
+//    @NoArgsConstructor
+//    public static class Patch {
+//
+//        private long diaryId;
+//
+//        private long playlistId;
+//
+//        private String url;
+//        private String thumbnail;
+//        private String title;
+//
+//    }
+//
+//    @Setter
+//    @Getter
+//    @AllArgsConstructor
+//    public static class Response {
+//
+//        private long playlistId;
+//        private long diaryId;
+//        private String thumbnail;
+//        private String title;
+//        private String url;
+//
+//
+//
+//    }
 
 }

@@ -28,11 +28,14 @@ public class Playlist {
     @Column
     private String url;
 
+    @Column
+    private String channelId;
 
-    //    유저랑 다이어리 연결
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
+//    //    유저랑 다이어리 연결
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
     //
     @ManyToOne
     @JoinColumn(name = "diary_id")

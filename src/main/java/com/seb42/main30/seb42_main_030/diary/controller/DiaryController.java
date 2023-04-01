@@ -7,7 +7,8 @@ import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.diary.mapper.DiaryMapper;
 import com.seb42.main30.seb42_main_030.diary.service.DiaryService;
 import com.seb42.main30.seb42_main_030.exception.BusinessException;
-import com.seb42.main30.seb42_main_030.playlist.service.PlaylistService;
+//import com.seb42.main30.seb42_main_030.playlist.service.PlaylistService;
+import com.seb42.main30.seb42_main_030.response.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,15 +33,22 @@ public class DiaryController {
     private final DiaryService diaryService;
     private final DiaryMapper diaryMapper;
     private final CommentService commentService;
-    private final PlaylistService playlistService;
+//    private final PlaylistService playlistService;
 
     // 게시물 등록
     @PostMapping
     public ResponseEntity postDiary(@Valid @RequestBody DiaryDto.Post post){
-        Diary diary = diaryService.createDiary(diaryMapper.diaryPostToDiary(post));
+//        Diary diary = diaryService.createDiary(diaryMapper.diaryPostToDiary(post));
+//
+//        DiaryDto.Response response = diaryMapper.diaryToResponse(diary);
+//        return new ResponseEntity<>(response, HttpStatus.CREATED);
 
-        DiaryDto.Response response = diaryMapper.diaryToResponse(diary);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        Diary diary = diaryMapper.diaryPostToDiary(post);
+        Diary savedDiary = diaryService.createDiary(diary, post);
+
+        return new ResponseEntity<>(diaryMapper.diaryToResponse(savedDiary), HttpStatus.CREATED);
+
+
     }
 
     // 게시물 조회
@@ -91,13 +99,19 @@ public class DiaryController {
     @PatchMapping("/{diary-id}")
     public ResponseEntity patchDiary (@PathVariable("diary-id") long diaryId,
                                       @Valid @RequestBody DiaryDto.Patch patch) throws BusinessException {
-        try {
-            Diary diary = diaryService.updateDiary(diaryId, diaryMapper.diaryPatchToDiary(patch));
-            DiaryDto.Response response = diaryMapper.diaryToResponse(diary);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (BusinessException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+//        try {
+//            Diary diary = diaryService.updateDiary(diaryId, diaryMapper.diaryPatchToDiary(patch));
+//            DiaryDto.Response response = diaryMapper.diaryToResponse(diary);
+//            return new ResponseEntity<>(response, HttpStatus.OK);
+//        } catch (BusinessException e){
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+
+        Diary diary = diaryMapper.diaryPatchToDiary(patch);
+        Diary savedDiary = diaryService.updateDiary(diaryId, diary, patch);
+
+        return new ResponseEntity<>(diaryMapper.diaryToResponse(savedDiary), HttpStatus.OK);
+
     }
 
     // 게시물 삭제
