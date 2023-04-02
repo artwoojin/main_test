@@ -81,6 +81,7 @@ public class DiaryController {
         List<DiaryDto.Response> responsess = diaryMapper.diaryToResponses(list);
 
 
+
         int nowPage = list.getPageable().getPageNumber() + 1;
         int startPage = Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage + 5, list.getTotalPages());
