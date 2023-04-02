@@ -37,7 +37,7 @@ public class Playlist {
 //    @JoinColumn(name = "user_id")
 //    private User user;
     //
-    @ManyToOne
+    @ManyToOne(targetEntity = Diary.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "diary_id")
     private Diary diary;
 
