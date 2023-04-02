@@ -57,6 +57,7 @@ public interface DiaryMapper {
         if (diary == null) {
             return null;
         } else {
+            List<Comment> comments = diary.getComments();
             DiaryDto.Response.ResponseBuilder  diaryDto = DiaryDto.Response.builder();
             List<Playlist> playlists = diary.getPlaylists();
             diaryDto.diaryId(diary.getDiaryId());
@@ -67,10 +68,11 @@ public interface DiaryMapper {
             diaryDto.userNickname(diary.getUser().getNickname());
             diaryDto.viewCount(diary.getViewCount());
             diaryDto.likeCount(diary.getLikeCount());
-            List<Comment> comments = diary.getComments();
+
 
 
             diaryDto.playlists(playlistsToPlaylistResponseDto(playlists));
+            diaryDto.comments(commentToCommentDto(comments));
             return diaryDto.build();
         }
     }
@@ -102,6 +104,19 @@ public interface DiaryMapper {
     @Named("commentToCommentDto")
     @Mapping(source = "user.nickname", target = "userNickname")
     @Mapping(source = "diary.diaryId", target = "diaryId")
-    CommentDto.Response commentToCommentDto(Comment comment);
+    default List<CommentDto.Response> commentToCommentDto(List<Comment> comments){
+        return comments
+                .stream()
+                .map(comment -> CommentDto.Response
+                        .builder()
+                        .commentId(comment.getCommentId())
+                        .diaryId(comment.getDiary().getDiaryId())
+                        .body(comment.getBody())
+                        .createdAt(comment.getCreatedAt())
+                        .modifiedAt(comment.getModifiedAt())
+                        .userNickname(comment.getUser().getNickname())
+                        .build())
+                .collect(Collectors.toList());
+    }
 
 }

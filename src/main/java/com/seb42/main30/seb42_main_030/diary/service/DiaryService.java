@@ -32,11 +32,11 @@ import java.util.Optional;
 @AllArgsConstructor
 public class DiaryService {
 
-    private DiaryRepository diaryRepository;
-    private UserRepository userRepository;
-    private UserService userService;
+    private final DiaryRepository diaryRepository;
+    private final UserRepository userRepository;
+    private final UserService userService;
 
-    private PlaylistRepository playlistRepository;
+    private final PlaylistRepository playlistRepository;
 
 
 //    create
@@ -90,6 +90,11 @@ public class DiaryService {
 
         verifyDiary.setTitle(diary.getTitle());
         verifyDiary.setBody(diary.getBody());
+
+
+        for (int i = 0; i < verifyDiary.getPlaylists().size(); i ++) {
+            playlistRepository.delete(verifyDiary.getPlaylists().get(i));
+        }
 
         List<Playlist> playlistList = new ArrayList<>();
         for(int i = 0; i < patch.getPlaylists().size(); i++){
