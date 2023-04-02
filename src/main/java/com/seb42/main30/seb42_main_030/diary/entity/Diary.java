@@ -3,6 +3,7 @@ package com.seb42.main30.seb42_main_030.diary.entity;
 
 import com.seb42.main30.seb42_main_030.audit.Auditable;
 import com.seb42.main30.seb42_main_030.comment.entity.Comment;
+import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,5 +54,8 @@ public class Diary extends Auditable {
 
     @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
+    private List<Playlist> playlists = new ArrayList<>();
 
 }

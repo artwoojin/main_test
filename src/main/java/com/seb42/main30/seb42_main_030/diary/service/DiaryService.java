@@ -1,10 +1,14 @@
 package com.seb42.main30.seb42_main_030.diary.service;
 
 
+import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.diary.repository.DiaryRepository;
 import com.seb42.main30.seb42_main_030.exception.BusinessException;
 import com.seb42.main30.seb42_main_030.exception.ExceptionCode;
+import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistResponseDto;
+import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
+import com.seb42.main30.seb42_main_030.playlist.repository.PlaylistRepository;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import com.seb42.main30.seb42_main_030.user.service.UserService;
@@ -17,6 +21,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,13 +36,33 @@ public class DiaryService {
     private UserRepository userRepository;
     private UserService userService;
 
+    private PlaylistRepository playlistRepository;
+
 
 //    create
-    public Diary createDiary(Diary diary){
+    public Diary createDiary(Diary diary, DiaryDto.Post post){
         long userId = userService.getLoginUser().getUserId();
         User user = getUserFromId(userId);
         diary.setUser(user);
-        return diaryRepository.save(diary);
+
+        List<Playlist> playlistList = new ArrayList<>();
+        for(int i = 0; i < post.getPlaylists().size(); i++){
+            Playlist playlist = new Playlist();
+            playlist.setUrl(post.getPlaylists().get(i).getUrl());
+            playlist.setTitle(post.getPlaylists().get(i).getTitle());
+            playlist.setThumbnail(post.getPlaylists().get(i).getThumbnail());
+            playlist.setChannelId(post.getPlaylists().get(i).getChannelId());
+            playlist.setDiary(diary);
+            playlistList.add(playlist);
+            playlistRepository.save(playlist);
+        }
+
+        diary.setPlaylists(playlistList);
+        Diary savedDiary = diaryRepository.save(diary);
+
+        return savedDiary;
+
+//        return diaryRepository.save(diary);
     }
 
     private User getUserFromId(long userId) {return userRepository.findById(userId).get();}
@@ -59,11 +85,26 @@ public class DiaryService {
 
 
 //    update
-    public Diary updateDiary(long diaryId, Diary diary){
+    public Diary updateDiary(long diaryId, Diary diary, DiaryDto.Patch patch){
         Diary verifyDiary = verifyWriter(diaryId);
 
         verifyDiary.setTitle(diary.getTitle());
         verifyDiary.setBody(diary.getBody());
+
+        List<Playlist> playlistList = new ArrayList<>();
+        for(int i = 0; i < patch.getPlaylists().size(); i++){
+            Playlist playlist = new Playlist();
+            playlist.setUrl(patch.getPlaylists().get(i).getUrl());
+            playlist.setTitle(patch.getPlaylists().get(i).getTitle());
+            playlist.setThumbnail(patch.getPlaylists().get(i).getThumbnail());
+            playlist.setChannelId(patch.getPlaylists().get(i).getChannelId());
+            playlist.setDiary(diary);
+            playlistList.add(playlist);
+            playlistRepository.save(playlist);
+        }
+
+        verifyDiary.setPlaylists(playlistList);
+        verifyDiary.setModifiedAt(LocalDateTime.now());
 
         return diaryRepository.save(verifyDiary);
     }

@@ -3,10 +3,9 @@ package com.seb42.main30.seb42_main_030.diary.dto;
 
 
 import com.seb42.main30.seb42_main_030.comment.dto.CommentDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistDto;
+import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistResponseDto;
+import lombok.*;
 
 
 import javax.validation.constraints.NotBlank;
@@ -26,6 +25,8 @@ public class DiaryDto {
         @NotBlank(message = "내용을 입력하세요")
         private String body;
 
+        private List<PlaylistDto> playlists;
+
         private int likeCount;
 
     }
@@ -41,6 +42,8 @@ public class DiaryDto {
         @NotBlank(message = "내용을 입력하세요")
         private String body;
 
+        private List<PlaylistDto> playlists;
+
         private int likeCount;
 
     }
@@ -48,6 +51,7 @@ public class DiaryDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @Builder
     public static class Response {
 
         private long diaryId;
@@ -63,6 +67,8 @@ public class DiaryDto {
 
 
         private List<CommentDto.Response> comments;
+//        private List<PlaylistDto.Response> playlists;
+        private List<PlaylistResponseDto> playlists;
 
     }
 
