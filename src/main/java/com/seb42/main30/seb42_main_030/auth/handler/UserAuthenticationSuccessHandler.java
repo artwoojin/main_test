@@ -1,6 +1,7 @@
 package com.seb42.main30.seb42_main_030.auth.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,8 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
 //
 //            writer.write(json.toString());
 //        }
+
+
         User user = (User) authentication.getPrincipal();
 
         response.setCharacterEncoding("UTF-8");
@@ -58,6 +61,18 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
         response.getWriter().write(responseBody);
 
         log.info("# Authenticated successfully!");
-        log.info("nickname:{}, email: {}, imageUrl: {}", user.getNickname(), user.getEmail(), user.getImageUrl());
+
+//        sendLoginResponse(response);
+
+        //log.info("nickname:{}, email: {}, imageUrl: {}", user.getNickname(), user.getEmail(), user.getImageUrl());
+
+
+//    private void sendLoginResponse(HttpServletResponse response) throws IOException {
+//        Gson gson = new Gson();
+//        LoginResponse loginResponse = LoginResponse.of(HttpStatus.ACCEPTED);
+//        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//        response.setStatus(HttpStatus.ACCEPTED.value());
+//        response.getWriter().write(gson.toJson(loginResponse, LoginResponse.class));
+
     }
 }
